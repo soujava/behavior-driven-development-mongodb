@@ -20,8 +20,8 @@ public class RoomService {
         this.repository = null;
     }
 
-    public void newRoom(Room room) {
-        repository.newRoom(room);
+    public void save(Room room) {
+        repository.save(room);
     }
 
 

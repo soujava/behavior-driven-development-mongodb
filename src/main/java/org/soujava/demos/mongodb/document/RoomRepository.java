@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface RoomRepository {
 
+    @Query("FROM Room")
+    List<Room> findAll();
     @Query("WHERE type = 'VIP_SUITE' AND status = 'AVAILABLE' AND underMaintenance = false")
     List<Room> findVipRoomsReadyForGuests();
 
@@ -26,7 +28,7 @@ public interface RoomRepository {
     void save(List<Room> rooms);
 
     @Save
-    Room newRoom(Room room);
+    Room save(Room room);
     void deleteBy();
 
     @Query("WHERE type = :type")
