@@ -85,7 +85,6 @@ public class HotelRoomSteps {
     @Then("the room {int} should be marked as {word}")
     public void the_room_should_be_marked_as(Integer number, String expectedStatusName) {
         RoomStatus expectedStatus = RoomStatus.valueOf(expectedStatusName);
-        List<Room> all = repository.findAll();
         Optional<Room> roomOpt = repository.findByNumber(number);
 
         Assertions.assertThat(roomOpt)
