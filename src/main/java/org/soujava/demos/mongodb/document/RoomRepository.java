@@ -6,6 +6,7 @@ import jakarta.data.repository.Repository;
 import jakarta.data.repository.Save;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RoomRepository {
@@ -33,4 +34,6 @@ public interface RoomRepository {
 
     @Query("WHERE type = :type")
     List<Room> findByType(@Param("type") String type);
+
+    Optional<Room> findByNumber(Integer number);
 }
