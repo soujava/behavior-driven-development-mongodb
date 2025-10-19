@@ -2,8 +2,8 @@ Feature: Manage hotel rooms
 
   Scenario: Register a new room
     Given the hotel management system is operational
-    When I register a room with number 101
-    Then the room with number 101 should appear in the room list
+    When I register a room with number 203
+    Then the room with number 203 should appear in the room list
 
   Scenario: Register multiple rooms
     Given the hotel management system is operational
