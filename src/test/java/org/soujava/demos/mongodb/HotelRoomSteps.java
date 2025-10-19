@@ -13,9 +13,6 @@ import java.util.Optional;
 public class HotelRoomSteps {
 
     @Inject
-    private RoomService service;
-
-    @Inject
     private RoomRepository repository;
 
     @Before
@@ -25,7 +22,6 @@ public class HotelRoomSteps {
 
     @Given("the hotel management system is operational")
     public void the_hotel_management_system_is_operational() {
-        Assertions.assertThat(service).as("RoomService should be initialized").isNotNull();
         Assertions.assertThat(repository).as("RoomRepository should be initialized").isNotNull();
     }
 
@@ -37,7 +33,7 @@ public class HotelRoomSteps {
                 .status(RoomStatus.AVAILABLE)
                 .cleanStatus(CleanStatus.CLEAN)
                 .build();
-        service.save(room);
+        repository.save(room);
     }
 
     @Then("the room with number {int} should appear in the room list")
@@ -50,7 +46,7 @@ public class HotelRoomSteps {
 
     @When("I register the following rooms:")
     public void i_register_the_following_rooms(List<Room> rooms) {
-        rooms.forEach(service::save);
+        rooms.forEach(repository::save);
     }
 
     @Then("there should be {int} rooms available in the system")
@@ -68,7 +64,7 @@ public class HotelRoomSteps {
                 .status(status)
                 .cleanStatus(CleanStatus.CLEAN)
                 .build();
-        service.save(room);
+        repository.save(room);
     }
 
     @When("I mark the room {int} as {word}")
@@ -86,7 +82,7 @@ public class HotelRoomSteps {
         Room updatedRoom = roomOpt.orElseThrow();
         updatedRoom.update(newStatus);
 
-        service.save(updatedRoom);
+        repository.save(updatedRoom);
     }
 
     @Then("the room {int} should be marked as {word}")
