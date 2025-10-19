@@ -14,7 +14,7 @@ public class RoomBuilder {
         return this;
     }
 
-    public RoomBuilder roomNumber(int roomNumber) {
+    public RoomBuilder number(int roomNumber) {
         this.roomNumber = roomNumber;
         return this;
     }
