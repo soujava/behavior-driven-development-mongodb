@@ -14,6 +14,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <jnosql.version>1.1.10</jnosql.version>
+        <weld.se.core.version>6.0.3.Final</weld.se.core.version>
     </properties>
 
     <dependencyManagement>
@@ -44,6 +45,24 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-shaded</artifactId>
+            <version>${weld.se.core.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <version>3.0.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.smallrye.config</groupId>
+            <artifactId>smallrye-config-core</artifactId>
+            <version>3.13.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.eclipse.jnosql.databases</groupId>
             <artifactId>jnosql-mongodb</artifactId>
             <version>${jnosql.version}</version>
@@ -69,6 +88,11 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
