@@ -70,10 +70,7 @@ public class HotelRoomSteps {
     @When("I mark the room {int} as {word}")
     public void i_mark_the_room_as(Integer number, String newStatusName) {
         RoomStatus newStatus = RoomStatus.valueOf(newStatusName);
-        Optional<Room> roomOpt = repository.findAll()
-                .stream()
-                .filter(r -> r.getNumber() == number)
-                .findFirst();
+        Optional<Room> roomOpt = repository.findByNumber(number);
 
         Assertions.assertThat(roomOpt)
                 .as("Room %s should exist", number)
@@ -88,10 +85,8 @@ public class HotelRoomSteps {
     @Then("the room {int} should be marked as {word}")
     public void the_room_should_be_marked_as(Integer number, String expectedStatusName) {
         RoomStatus expectedStatus = RoomStatus.valueOf(expectedStatusName);
-        Optional<Room> roomOpt = repository.findAll()
-                .stream()
-                .filter(r -> r.getNumber() == number)
-                .findFirst();
+        List<Room> all = repository.findAll();
+        Optional<Room> roomOpt = repository.findByNumber(number);
 
         Assertions.assertThat(roomOpt)
                 .as("Room %s should exist", number)
