@@ -1,6 +1,7 @@
 package org.soujava.demos.mongodb;
 
 
+import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import org.assertj.core.api.Assertions;
 import org.soujava.demos.mongodb.document.*;
@@ -11,17 +12,21 @@ import java.util.Optional;
 
 public class HotelRoomSteps {
 
+    @Inject
+    private RoomService service;
 
     @Inject
-    RoomService roomService;
+    private RoomRepository repository;
 
-    @Inject
-    RoomRepository roomRepository;
+    @Before
+    public void cleanDatabase() {
+        repository.deleteBy();
+    }
 
     @Given("the hotel management system is operational")
     public void the_hotel_management_system_is_operational() {
-        Assertions.assertThat(roomService).as("RoomService should be initialized").isNotNull();
-        Assertions.assertThat(roomRepository).as("RoomRepository should be initialized").isNotNull();
+        Assertions.assertThat(service).as("RoomService should be initialized").isNotNull();
+        Assertions.assertThat(repository).as("RoomRepository should be initialized").isNotNull();
     }
 
     @When("I register a room with number {int}")
@@ -32,12 +37,12 @@ public class HotelRoomSteps {
                 .status(RoomStatus.AVAILABLE)
                 .cleanStatus(CleanStatus.CLEAN)
                 .build();
-        roomService.save(room);
+        service.save(room);
     }
 
     @Then("the room with number {int} should appear in the room list")
     public void the_room_with_number_should_appear_in_the_room_list(Integer number) {
-        List<Room> rooms = roomRepository.findAll();
+        List<Room> rooms = repository.findAll();
         Assertions.assertThat(rooms)
                 .extracting(Room::getNumber)
                 .contains(number);
@@ -45,12 +50,12 @@ public class HotelRoomSteps {
 
     @When("I register the following rooms:")
     public void i_register_the_following_rooms(List<Room> rooms) {
-        rooms.forEach(roomService::save);
+        rooms.forEach(service::save);
     }
 
     @Then("there should be {int} rooms available in the system")
     public void there_should_be_rooms_available_in_the_system(int expectedCount) {
-        List<Room> rooms = roomRepository.findAll();
+        List<Room> rooms = repository.findAll();
         Assertions.assertThat(rooms).hasSize(expectedCount);
     }
 
@@ -63,13 +68,13 @@ public class HotelRoomSteps {
                 .status(status)
                 .cleanStatus(CleanStatus.CLEAN)
                 .build();
-        roomService.save(room);
+        service.save(room);
     }
 
     @When("I mark the room {int} as {word}")
     public void i_mark_the_room_as(Integer number, String newStatusName) {
         RoomStatus newStatus = RoomStatus.valueOf(newStatusName);
-        Optional<Room> roomOpt = roomRepository.findAll()
+        Optional<Room> roomOpt = repository.findAll()
                 .stream()
                 .filter(r -> r.getNumber() == number)
                 .findFirst();
@@ -81,13 +86,13 @@ public class HotelRoomSteps {
         Room updatedRoom = roomOpt.orElseThrow();
         updatedRoom.update(newStatus);
 
-        roomService.save(updatedRoom);
+        service.save(updatedRoom);
     }
 
     @Then("the room {int} should be marked as {word}")
     public void the_room_should_be_marked_as(Integer number, String expectedStatusName) {
         RoomStatus expectedStatus = RoomStatus.valueOf(expectedStatusName);
-        Optional<Room> roomOpt = roomRepository.findAll()
+        Optional<Room> roomOpt = repository.findAll()
                 .stream()
                 .filter(r -> r.getNumber() == number)
                 .findFirst();
