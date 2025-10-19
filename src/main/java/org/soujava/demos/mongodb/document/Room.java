@@ -75,6 +75,9 @@ public class Room {
         return underMaintenance;
     }
 
+    public void update(RoomStatus newStatus) {
+        this.status = newStatus;
+    }
 
     @Override
     public boolean equals(Object o) {
