@@ -13,3 +13,5 @@ test-output/
 /.project
 /.idea
 .settings/
+
+.DS_Store
