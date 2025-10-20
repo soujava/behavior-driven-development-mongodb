@@ -23,12 +23,12 @@ public class HotelRoomSteps {
     }
 
     @Given("the hotel management system is operational")
-    public void the_hotel_management_system_is_operational() {
+    public void theHotelManagementSystemIsOperational() {
         Assertions.assertThat(repository).as("RoomRepository should be initialized").isNotNull();
     }
 
     @When("I register a room with number {int}")
-    public void i_register_a_room_with_number(Integer number) {
+    public void iRegisterARoomWithNumber(Integer number) {
         Room room = Room.builder()
                 .number(number)
                 .type(RoomType.STANDARD)
@@ -39,7 +39,7 @@ public class HotelRoomSteps {
     }
 
     @Then("the room with number {int} should appear in the room list")
-    public void the_room_with_number_should_appear_in_the_room_list(Integer number) {
+    public void theRoomWithNumberShouldAppearInTheRoomList(Integer number) {
         List<Room> rooms = repository.findAll();
         Assertions.assertThat(rooms)
                 .extracting(Room::getNumber)
@@ -47,18 +47,18 @@ public class HotelRoomSteps {
     }
 
     @When("I register the following rooms:")
-    public void i_register_the_following_rooms(List<Room> rooms) {
+    public void iRegisterTheFollowingRooms(List<Room> rooms) {
         rooms.forEach(repository::save);
     }
 
     @Then("there should be {int} rooms available in the system")
-    public void there_should_be_rooms_available_in_the_system(int expectedCount) {
+    public void thereShouldBeRoomsAvailableInTheSystem(int expectedCount) {
         List<Room> rooms = repository.findAll();
         Assertions.assertThat(rooms).hasSize(expectedCount);
     }
 
     @Given("a room with number {int} is registered as {word}")
-    public void a_room_with_number_is_registered_as(Integer number, String statusName) {
+    public void aRoomWithNumberIsRegisteredAs(Integer number, String statusName) {
         RoomStatus status = RoomStatus.valueOf(statusName);
         Room room = Room.builder()
                 .number(number)
@@ -70,7 +70,7 @@ public class HotelRoomSteps {
     }
 
     @When("I mark the room {int} as {word}")
-    public void i_mark_the_room_as(Integer number, String newStatusName) {
+    public void iMarkTheRoomAs(Integer number, String newStatusName) {
         RoomStatus newStatus = RoomStatus.valueOf(newStatusName);
         Optional<Room> roomOpt = repository.findByNumber(number);
 
@@ -85,7 +85,7 @@ public class HotelRoomSteps {
     }
 
     @Then("the room {int} should be marked as {word}")
-    public void the_room_should_be_marked_as(Integer number, String expectedStatusName) {
+    public void theRoomShouldBeMarkedAs(Integer number, String expectedStatusName) {
         RoomStatus expectedStatus = RoomStatus.valueOf(expectedStatusName);
         Optional<Room> roomOpt = repository.findByNumber(number);
 
