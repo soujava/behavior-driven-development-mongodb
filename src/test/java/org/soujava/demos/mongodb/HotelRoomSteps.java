@@ -3,6 +3,7 @@ package org.soujava.demos.mongodb;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.assertj.core.api.Assertions;
 import org.soujava.demos.mongodb.document.*;
 
@@ -10,6 +11,7 @@ import jakarta.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class HotelRoomSteps {
 
     @Inject

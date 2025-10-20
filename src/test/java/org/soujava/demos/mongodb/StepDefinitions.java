@@ -3,10 +3,12 @@ package org.soujava.demos.mongodb;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.assertj.core.api.Assertions;
 import org.soujava.demos.mongodb.document.RoomRepository;
 
+@ApplicationScoped
 public class StepDefinitions {
 
     @Inject

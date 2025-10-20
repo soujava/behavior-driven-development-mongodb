@@ -1,6 +1,7 @@
 package org.soujava.demos.mongodb;
 
 import io.cucumber.java.DataTableType;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.soujava.demos.mongodb.document.CleanStatus;
 import org.soujava.demos.mongodb.document.Room;
 import org.soujava.demos.mongodb.document.RoomStatus;
@@ -8,6 +9,7 @@ import org.soujava.demos.mongodb.document.RoomType;
 
 import java.util.Map;
 
+@ApplicationScoped
 public class RoomDataTableMapper {
 
     @DataTableType
