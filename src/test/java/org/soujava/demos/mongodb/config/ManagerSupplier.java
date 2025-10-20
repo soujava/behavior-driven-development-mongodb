@@ -26,4 +26,5 @@ public class ManagerSupplier implements Supplier<DatabaseManager> {
     public MongoDBDocumentManager get() {
         return DatabaseContainer.INSTANCE.get("hotel");
     }
+
 }
